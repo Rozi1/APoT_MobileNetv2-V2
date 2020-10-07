@@ -6,6 +6,7 @@ Mobile Networks for Classification, Detection and Segmentation" for more details
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from models.quant_layer import *
 
 
 class Block(nn.Module):
