@@ -44,10 +44,10 @@ def main():
     model=None
     if use_gpu:
         float = True if args.bit == 32 else False
-        if args.arch == 'res20':
-            model = resnet20_cifar(float=float)
-        elif args.arch == 'res56':
-            model = resnet56_cifar(float=float)
+        if args.arch == 'cifar10':
+            model = MobileNetV2()
+        elif args.arch == 'cifar100':
+            model = MobileNetV2()
         else:
             print('Architecture not support!')
             return
