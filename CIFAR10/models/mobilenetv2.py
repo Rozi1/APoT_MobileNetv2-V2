@@ -76,6 +76,11 @@ class MobileNetV2(nn.Module):
         out = out.view(out.size(0), -1)
         out = self.linear(out)
         return out
+    
+    def show_params(self):
+        for m in self.modules():
+            if isinstance(m, QuantConv2d):
+                m.show_params()
 
 
 def test():
