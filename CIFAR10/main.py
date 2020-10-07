@@ -44,7 +44,7 @@ def main():
     model=None
     if use_gpu:
         float = True if args.bit == 32 else False
-        if args.arch == 'cifar10':
+        if args.arch == 'mobilenet':
             model = MobileNetV2()
         else:
             print('Architecture not support!')
