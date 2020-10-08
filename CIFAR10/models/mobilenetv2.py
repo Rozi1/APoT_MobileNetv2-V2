@@ -26,7 +26,7 @@ class Block(nn.Module):
         self.shortcut = nn.Sequential()
         if stride == 1 and in_planes != out_planes:
             self.shortcut = nn.Sequential(
-                QuantConV2d(in_planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False),
+                QuantConv2d(in_planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False),
                 nn.BatchNorm2d(out_planes),
             )
 
