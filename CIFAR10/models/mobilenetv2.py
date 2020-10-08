@@ -58,7 +58,7 @@ class MobileNetV2(nn.Module):
         self.bn2 = nn.BatchNorm2d(1280)
         self.linear = nn.Linear(1280, num_classes)
 
-    def _make_layers(self, block, planes, blocks, stride=1, float=False):
+    def _make_layers(self, in_planes):
         downsample = None
         if stride != 1 or self.inplanes != planes * block.expansion:
             downsample = nn.Sequential(
