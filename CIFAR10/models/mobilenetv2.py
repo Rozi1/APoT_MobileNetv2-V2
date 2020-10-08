@@ -60,6 +60,7 @@ class MobileNetV2(nn.Module):
 
     def _make_layers(self, in_planes):
         downsample = None
+        stride = 1
         if stride != 1 or self.inplanes != planes * block.expansion:
             downsample = nn.Sequential(
                 QuantConv2d(self.inplanes, planes * block.expansion, kernel_size=1, stride=stride, bias=False)
