@@ -11,7 +11,7 @@ from models.quant_layer import *
 
 class Block(nn.Module):
     '''expand + depthwise + pointwise'''
-    def __init__(self, in_planes, out_planes, expansion, stride):
+    def __init__(self, in_planes, out_planes, expansion, stride=1):
         super(Block, self).__init__()
         self.stride = stride
 
