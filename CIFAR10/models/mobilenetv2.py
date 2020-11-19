@@ -18,7 +18,7 @@ class Block(nn.Module):
         planes = expansion * in_planes
         self.conv1 = QuantConv2d(in_planes, planes, kernel_size=1, stride=1, padding=0, bias=False)
         self.bn1 = nn.BatchNorm2d(planes)
-        self.conv2 = QuantConv2d(planes, planes, kernel_size=3, stride=stride, padding=1, groups=planes, bias=False)
+        self.conv2 = nn.Comv2d(planes, planes, kernel_size=3, stride=stride, padding=1, groups=planes, bias=False)
         self.bn2 = nn.BatchNorm2d(planes)
         self.conv3 = nn.Conv2d(planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False)
         self.bn3 = nn.BatchNorm2d(out_planes)
@@ -26,7 +26,7 @@ class Block(nn.Module):
         self.shortcut = nn.Sequential()
         if stride == 1 and in_planes != out_planes:
             self.shortcut = nn.Sequential(
-                nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False),
+               QuantConv2d(in_planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False),
                 nn.BatchNorm2d(out_planes),
             )
 
