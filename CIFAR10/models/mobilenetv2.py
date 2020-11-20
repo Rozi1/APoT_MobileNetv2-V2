@@ -27,10 +27,10 @@ class Block(nn.Module):
 
         planes = expansion * in_planes
         if float:
-            self.conv1 = conv3x3(inplanes, planes, stride)
+            self.conv1 = conv3x3(in_planes, planes, stride)
             self.conv2 = conv3x3(planes, planes)
         else:
-            self.conv1 = Quantconv3x3(inplanes, planes, stride)
+            self.conv1 = Quantconv3x3(in_planes, planes, stride)
             self.conv2 = Quantconv3x3(planes, planes)
             self.conv3 = QuantConv2d(planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False)
         self.bn1 = nn.BatchNorm2d(planes)
