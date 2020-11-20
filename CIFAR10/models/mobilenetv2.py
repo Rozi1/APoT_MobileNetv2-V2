@@ -9,24 +9,38 @@ import torch.nn.functional as F
 from models.quant_layer import *
 
 
+
+def conv3x3(in_planes, out_planes, stride=1):
+    " 3x3 convolution with padding "
+    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride, padding=1, bias=False)
+
+
+def Quantconv3x3(in_planes, out_planes, stride=1):
+    " 3x3 quantized convolution with padding "
+    return QuantConv2d(in_planes, out_planes, kernel_size=3, stride=stride, padding=1, bias=False)
+
 class Block(nn.Module):
     '''expand + depthwise + pointwise'''
-    def __init__(self, in_planes, out_planes, expansion, stride):
+     def __init__(self, inplanes, planes, stride=1, downsample=None, float=False):
         super(Block, self).__init__()
         self.stride = stride
 
         planes = expansion * in_planes
-        self.conv1 = nn.Conv2d(in_planes, planes, kernel_size=1, stride=1, padding=0, bias=False)
+         if float:
+            self.conv1 = conv3x3(inplanes, planes, stride)
+            self.conv2 = conv3x3(planes, planes)
+        else:
+            self.conv1 = Quantconv3x3(inplanes, planes, stride)
+            self.conv2 = Quantconv3x3(planes, planes)
+            self.conv3 = QuantConv2d(planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False)
         self.bn1 = nn.BatchNorm2d(planes)
-        self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride, padding=1, groups=planes, bias=False)
         self.bn2 = nn.BatchNorm2d(planes)
-        self.conv3 = QuantConv2d(planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False)
         self.bn3 = nn.BatchNorm2d(out_planes)
 
         self.shortcut = nn.Sequential()
         if stride == 1 and in_planes != out_planes:
             self.shortcut = nn.Sequential(
-               QuantConv2d(in_planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False),
+               nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=1, padding=0, bias=False),
                 nn.BatchNorm2d(out_planes),
             )
 
