@@ -26,7 +26,7 @@ class Block(nn.Module):
         self.stride = stride
 
         planes = expansion * in_planes
-         if float:
+        if float:
             self.conv1 = conv3x3(inplanes, planes, stride)
             self.conv2 = conv3x3(planes, planes)
         else:
