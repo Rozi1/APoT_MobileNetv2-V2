@@ -21,7 +21,7 @@ def Quantconv3x3(in_planes, out_planes, stride=1):
 
 class Block(nn.Module):
     '''expand + depthwise + pointwise'''
-    def __init__(self, inplanes, planes, stride=1, downsample=None, float=False):
+    def __init__(self, inplanes, planes, expansion,  stride=1, downsample=None, float=False):
         super(Block, self).__init__()
         self.stride = stride
 
